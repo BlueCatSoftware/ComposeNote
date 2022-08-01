@@ -14,7 +14,7 @@ fun NoteList(dp: PaddingValues) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(6.dp),
         modifier = Modifier.padding(dp),
-        contentPadding = PaddingValues(8.dp)
+        contentPadding = PaddingValues(12.dp)
     ) {
         items(
             count = 10

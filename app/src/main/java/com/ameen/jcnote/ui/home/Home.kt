@@ -1,12 +1,10 @@
 package com.ameen.jcnote.ui.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.TopAppBar
 import androidx.compose.material3.*
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
@@ -26,11 +24,14 @@ fun Home(navController: NavController?) {
         topBar = {
             TopAppBar(
                 contentPadding = PaddingValues(0.dp),
-                backgroundColor = MaterialTheme.colorScheme.surface,
+                backgroundColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.onSurface,
-                elevation = 0.dp
+                elevation = 0.dp,
+                modifier = Modifier
+                    .padding(horizontal = 12.dp, vertical = 12.dp)
+                    .clip(RoundedCornerShape(10.dp))
             ) {
-                ToolBarContent()
+                ToolBarContent(Modifier.weight(1f))
             }
         },
         floatingActionButton = {
@@ -53,36 +54,21 @@ fun HomePreview() {
     Home(null)
 }
 
-@Preview
 @Composable
-fun ToolBarContentPreview() {
-    ToolBarContent()
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ToolBarContent() {
+fun ToolBarContent(modifier: Modifier) {
     var searchText by remember {
         mutableStateOf("")
     }
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp)
-            .clip(RoundedCornerShape(50.dp))
-            .background(MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(50.dp)),
-        verticalAlignment = CenterVertically
+    Icon(Icons.Rounded.Dehaze, "Drawer", Modifier.padding(start = 12.dp))
+    BasicTextField(
+        value = searchText,
+        onValueChange = { searchText = it },
+        modifier = modifier,
+        textStyle = TextStyle()
     ) {
-        Icon(Icons.Rounded.Dehaze, "Search")
-        BasicTextField(
-            value = searchText,
-            onValueChange = { searchText = it },
-            modifier = Modifier.weight(1f),
-            textStyle = TextStyle()
-        ) {
-            Text(text = "search", modifier = Modifier.padding(8.dp))
-        }
-        Icon(Icons.Rounded.Search, "Search")
+        Text(text = "search", modifier = Modifier.padding(8.dp))
     }
+    Icon(Icons.Rounded.Search, "Search", Modifier.padding(end = 12.dp))
+
 }
 
